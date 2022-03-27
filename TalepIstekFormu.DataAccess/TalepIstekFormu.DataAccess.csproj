@@ -77,19 +77,6 @@
     <Compile Include="Concrete\EF\GenericRepository.cs" />
     <Compile Include="Concrete\EF\FormDal.cs" />
     <Compile Include="Abstract\IFormDal.cs" />
-    <Compile Include="Migrations\202203250957288_ad.cs" />
-    <Compile Include="Migrations\202203250957288_ad.designer.cs">
-      <DependentUpon>202203250957288_ad.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203252057590_asda.cs" />
-    <Compile Include="Migrations\202203252057590_asda.designer.cs">
-      <DependentUpon>202203252057590_asda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202203252103363_dasda.cs" />
-    <Compile Include="Migrations\202203252103363_dasda.designer.cs">
-      <DependentUpon>202203252103363_dasda.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -113,17 +100,6 @@
       <Project>{1D77E10B-8089-4860-8232-21E0C02F0C4C}</Project>
       <Name>TalepIstekFormu.Entities</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202203250957288_ad.resx">
-      <DependentUpon>202203250957288_ad.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203252057590_asda.resx">
-      <DependentUpon>202203252057590_asda.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202203252103363_dasda.resx">
-      <DependentUpon>202203252103363_dasda.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
