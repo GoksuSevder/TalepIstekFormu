@@ -1,0 +1,469 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model FormModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<br />
+<br />
+<div class="card" id="EmploySelectedCard">
+    <div class="card-header">
+        <h5> Çalışan Listesi</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="width:10%">
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan ID</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan Ad</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan Soyad</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Şirket</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Departman</span>
+                        </div>
+                    </th>
+
+                    <th style="width:20%">
+                        <div class="row justify-content-center m-1">
+                            <span>İşlemler </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.EmployLists)
+                {
+                    <tr>
+                        <td>
+                            @item.EmployId
+                        </td>
+                        <td>
+                            @item.EmployName
+                        </td>
+                        <td>
+                            @item.EmploySurname
+                        </td>
+                        <td>
+                            @item.CompanyName
+                        </td>
+                        <td>
+                            @item.DepartmentName
+                        </td>
+                        <td>
+                            <div class="row justify-content-center m-1">
+                                <button name="@item.EmployId" class="btn btn-success SelectedEmploy">Form Oluştur</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<br />
+<br />
+<br />
+<br />
+<div id="FormTable">
+    <form action="/Admin/Create" method="post">
+        <table class="table table-bordered border-dark " id="FormTable1">
+            <thead>
+                <tr>
+                    <th scope="col" colspan="4" class="text-center"><h4>Uygulama Talep Formu</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Hazırlayan Anahtar Kullanıcı</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row m-1">
+                            <input type="text" id="EmployFullName" class="form-control  border-0 " style="width: 100%" disabled>
+                            <input type="hidden" id="EmployId" name="EmployId" value="" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Oluşturulma Tarihi</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row m-1">
+                            <input type="date" id="OlusturulmaTarih" name="OlusturulmaTarih" class="form-control   " style="width: 100%">
+
+
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Talebin Gerçekleşeceği Sistem (varsa)</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row m-1">
+                            @*<input type="text" class="form-control  border-0 " style="width: 100%" placeholder="Username">*@
+                            @Html.TextBoxFor(x => x.TalebinGerceklesecegiSistem, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Güncellenme Tarihi</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="row m-1">
+                            <input type="date" class="form-control  border-0 " style="width: 100%" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Talep Numarası: (BT Ekibi dolduracaktır)</span>
+                        </div>
+                    <td>
+                        <div class="row m-1">
+                            <input type="text" class="form-control  border-0 " style="width: 100%" disabled>
+                        </div>
+                    </td>
+                    <td colspan="2">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <br />
+        <table class="table table-bordered border-dark ">
+            <tbody>
+                <tr>
+                    <td colspan="1">
+                        <div class="row justify-content-center m-1">
+                            <span>Talep Eden Grup Şirketi</span>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div class="row m-1">
+                            <input type="text" id="CompanyName" name="CompanyName" class="form-control  border-0 " style="width: 100%" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Talep Eden Departman</span>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <div class="row m-1">
+                            <input type="text" id="DepartmentName" name="DepartmentName" class="form-control  border-0 " style="width: 100%" disabled>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Talep Özeti</span>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @*<textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.TalepOzet, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>Talep Gerekçesi</span>
+                    </td>
+                    <td colspan="3">
+                        <div class="row m-1">
+                            @*<input type="text" class="form-control  border-0 " style="width: 100%" placeholder="Username">*@
+                            @Html.TextAreaFor(x => x.TalepGerekce, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Talebin Türü</span>
+                        <br />
+                        <br />
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault1" name="MevcutSistemeEkMi">
+                            <label class="form-check-label" for="flexCheckDefault1">
+                                Mevcut Sisteme Ek Fonksiyon / Senaryo
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault2" name="MevcutFonksiyonMu">
+                            <label class="form-check-label" for="flexCheckDefault2">
+                                Mevcut Fonksiyon İyileştirme / Değişiklik
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault3" name="YeniSistemMi">
+                            <label class="form-check-label" for="flexCheckDefault3">
+                                Yeni Sistem/ Uygulama Talebi
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault4" name="RaporlamaMi">
+                            <label class="form-check-label" for="flexCheckDefault4">
+                                Raporlama
+                            </label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Talebin Kapsamı ve İçeriği</span>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @*<textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.TalepKapsamIcerik, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Kullanıcı Grupları ve Kullanım Sıklığı</span>
+                        <br />
+                        <i>Lütfen talebin gerçekleştirilmesi durumunda ulaşılması hedeflenen faydayı detaylandırın.</i>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @*<textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.KullaniciGrupKullanimSikligi, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                        <i>
+                            (Yıllık iş gücü tasarrufu, kayıplarda azalma, hedeflenen süreç iyileştirmesini ölçülebilir şekilde yazınız. –
+                            Adamgün, TL, personel sayısı)
+                        </i>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Hedeflenen Fayda</span>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @* <textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.HedeflenenFayda, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault5" name="GelirArtisiMi">
+                            <label class="form-check-label" for="flexCheckDefault5">
+                                Gelir Artışı
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault6" name="MaliyetAzaltmaMi">
+                            <label class="form-check-label" for="flexCheckDefault6">
+                                Maliyet azaltma / verimlilik
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault7" name="RegulasyonaUyumMu">
+                            <label class="form-check-label" for="flexCheckDefault7">
+                                Regülasyona uyum
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault8" name="TakipIzlenebilirlikArtisMi">
+                            <label class="form-check-label" for="flexCheckDefault8">
+                                Takip / izlenebilirlik artışı
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="false" id="flexCheckDefault9" name="DigerMi">
+                            <label class="form-check-label" for="flexCheckDefault9">
+                                Diğer <i>(Lütfen belirtin)</i>
+                            </label>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <span>Raporlama Gereksinimi</span>
+                        <br />
+                        <i>Lütfen varsa, değişiklik / ek fonksiyon talebinizden doğacak raporlama gereksinimlerini belirtiniz. </i>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @*<textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.RaporlamaGereksinimi, new { @class = "form-control border-0", Styles = "width: 100 %" })
+
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Riskler</span>
+                        <br />
+                        <i>Lütfen talebin gerçekleştirilmemesi durumunda oluşacak riskleri belirtin.</i>
+                        <br />
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @* <textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.Riskler, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <span>Talep Sahibinin Piyasadaki Çözümlere İlişkin Bilgileri:</span>
+                        <br />
+                        <i>Lütfen varsa, 3. parti çözüm önerilerinizi belirtin.</i>
+                        <br />
+                        <div class="row justify-content-center m-1">
+                            @*  <textarea class="form-control border-0" id="floatingTextarea" style="width: 100%"></textarea>*@
+                            @Html.TextAreaFor(x => x.CozumBilgileri, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row justify-content-center m-1">
+                            <span>Talep Edilen Devreye Alım Tarihi</span>
+                        </div>
+                    </td>
+                    <td colspan="3">
+                        <input type="date" name="DevreyeAlimTarihi" class="form-control  border-0 ">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="row justify-content-end ml-3">
+                <input type="submit" class="btn btn-outline-info" id="submitButton" value="Kaydet" />
+            </div>
+
+        </div>
+    </form>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#FormTable").hide();
+        $("#flexCheckDefault1").click(function () {
+            if ($("#flexCheckDefault1").val() == "false") {
+                $("#flexCheckDefault1").val(true);
+            } else {
+                $("#flexCheckDefault1").val(false);
+            }
+        });
+        $("#flexCheckDefault2").click(function () {
+            if ($("#flexCheckDefault2").val() == "false") {
+                $("#flexCheckDefault2").val(true);
+            } else {
+                $("#flexCheckDefault2").val(false);
+            }
+        });
+        $("#flexCheckDefault3").click(function () {
+            if ($("#flexCheckDefault3").val() == "false") {
+                $("#flexCheckDefault3").val(true);
+            } else {
+                $("#flexCheckDefault3").val(false);
+            }
+        });
+        $("#flexCheckDefault4").click(function () {
+            if ($("#flexCheckDefault4").val() == "false") {
+                $("#flexCheckDefault4").val(true);
+            } else {
+                $("#flexCheckDefault4").val(false);
+            }
+        });
+        $("#flexCheckDefault5").click(function () {
+            if ($("#flexCheckDefault5").val() == "false") {
+                $("#flexCheckDefault5").val(true);
+            } else {
+                $("#flexCheckDefault5").val(false);
+            }
+        });
+        $("#flexCheckDefault6").click(function () {
+            if ($("#flexCheckDefault6").val() == "false") {
+                $("#flexCheckDefault6").val(true);
+            } else {
+                $("#flexCheckDefault6").val(false);
+            }
+        });
+        $("#flexCheckDefault7").click(function () {
+            if ($("#flexCheckDefault7").val() == "false") {
+                $("#flexCheckDefault7").val(true);
+            } else {
+                $("#flexCheckDefault7").val(false);
+            }
+        });
+        $("#flexCheckDefault8").click(function () {
+            if ($("#flexCheckDefault8").val() == "false") {
+                $("#flexCheckDefault8").val(true);
+            } else {
+                $("#flexCheckDefault8").val(false);
+            }
+        });
+        $("#flexCheckDefault9").click(function () {
+            if ($("#flexCheckDefault9").val() == "false") {
+                $("#flexCheckDefault9").val(true);
+            } else {
+                $("#flexCheckDefault9").val(false);
+            }
+        });
+        $(".SelectedEmploy").click(function (e) {
+            e.preventDefault();
+            var Employid = $(this).parents()[2].children[0].textContent.trim();
+            var p = $.post("/Home/GetEmploy",
+                {
+                    id: Employid,
+                },
+                function (data, status) {
+                    $("#EmployFullName").val(data.EmployName + " " + data.EmploySurname);
+                    $("#EmployId").val(data.EmployId);
+                    $("#CompanyName").val(data.CompanyName);
+                    $("#DepartmentName").val(data.DepartmentName);
+                });
+            $.when(p).done(function () {
+                $("#EmploySelectedCard").hide();
+                $("#FormTable").show();
+            });
+        });
+        $("#submitButton").click(function () {
+            
+            $("#CompanyName").removeAttr("disabled");
+            $("#DepartmentName").removeAttr("disabled");
+        });
+
+    });
+
+</script>

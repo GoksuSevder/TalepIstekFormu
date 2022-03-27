@@ -1,0 +1,96 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model EmployModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<br />
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+        <h5 class="mt-3">Şirket Ekle</h5>
+    </div>
+    <form action="/Employ/Create" method="post">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3" style="width:50%">
+                            <span class="input-group-text" id="basic-addon1">Ad</span>
+                            @Html.TextBoxFor(x => x.Employ.EmployName, new { @class = "form-control " })
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                Şirket Adı  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <select class="form-select" aria-label="Default select example" id="Employ.CompanyId" name="Employ.CompanyId">
+                                <option>
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    &nbsp;
+                                    Şirket Seçin&nbsp;
+                                    &nbsp;
+                                    &nbsp; &nbsp;&nbsp;
+
+                                </option>
+                                @foreach (var item in ViewBag.CommpanySelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3" style="width:50%">
+                            <span class="input-group-text" id="basic-addon1">Soyad</span>
+                            @Html.TextBoxFor(x => x.Employ.EmploySurname, new { @class = "form-control " })
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Departman Adı</span>
+                            <select class="form-select" aria-label="Default select example" id="Employ.DepartmentId" name="Employ.DepartmentId">
+                                <option> &nbsp; &nbsp;Departman Seçin &nbsp; &nbsp;</option>
+                                @foreach (var item in ViewBag.DeparmentSelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-end ml-3">
+                <input type="submit" class="btn btn-outline-info" name="name" value="Kaydet" />
+            </div>
+        </div>
+    </form>
+</div>
+

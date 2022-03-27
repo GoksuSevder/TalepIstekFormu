@@ -1,0 +1,31 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model DepartmentModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+        <h5 class="mt-3">Departman Güncelle</h5>
+    </div>
+    <form action="/Department/Edit" method="post">
+        <div class="card-body">
+            <div class="row m-auto ml-5">
+                <div class="input-group mb-3" style="width:30%">
+                    <span class="input-group-text" id="basic-addon1">Departman Adı</span>
+                    @Html.TextBoxFor(x => x.GetDepartment.DepartmentName, new { @class = "form-control " })
+                <input type="hidden" name="GetDepartment.DepartmentId" value="@Model.GetDepartment.DepartmentId" />
+                </div>
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-end ml-3">
+                <input type="submit" class="btn btn-outline-warning" name="name" value="Güncelle" />
+            </div>
+        </div>
+    </form>
+</div>

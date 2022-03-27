@@ -1,0 +1,87 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model EmployModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+        <h5 class="mt-3">Şirket Ekle</h5>
+    </div>
+    <form action="/Employ/Edit" method="post">
+        <div class="card-body">
+            <input type="hidden" name="Employ.EmployId" value="@Model.Employ.EmployId" />
+            <div class="row">
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3" style="width:50%">
+                            <span class="input-group-text" id="basic-addon1">Ad</span>
+                            @Html.TextBoxFor(x => x.Employ.EmployName, new { @class = "form-control " })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                Şirket Adı  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                            <select class="form-select" aria-label="Default select example"  name="Employ.CompanyId">
+                                @foreach (var item in ViewBag.CommpanySelectList)
+                                {
+                                    if (Model.Employ.CompanyId == item.CompanyId)
+                                    {
+                                        <option value="@item.CompanyId" selected="selected">@item.CompanyName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CompanyId">@item.CompanyName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3" style="width:50%">
+                            <span class="input-group-text" id="basic-addon1">Soyad</span>
+                            @Html.TextBoxFor(x => x.Employ.EmploySurname, new { @class = "form-control " })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row m-auto ml-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Departman Adı</span>
+                            <select class="form-select" aria-label="Default select example"  name="Employ.DepartmentId">
+                                @foreach (var item in ViewBag.DeparmentSelectList)
+                                {
+                                    if (Model.Employ.DepartmentId == item.DepartmentId)
+                                    {
+                                        <option value="@item.DepartmentId" selected="selected">@item.DepartmentName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.DepartmentId">@item.DepartmentName</option>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-end ml-3">
+                <input type="submit" class="btn btn-outline-info" name="name" value="Kaydet" />
+            </div>
+        </div>
+    </form>
+</div>

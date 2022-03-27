@@ -1,0 +1,84 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model EmployListModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+
+
+<div class="card">
+    <div class="card-header">
+        <h5> Çalışan Listesi</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="width:20%">
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan ID</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan Ad</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Çalışan Soyad</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Şirket</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Departman</span>
+                        </div>
+                    </th>
+
+                    <th style="width:10%">
+                        <div class="row justify-content-center m-1">
+                            <span>İşlemler </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.EmployLists)
+                {
+                    <tr>
+                        <td>
+                            @item.EmployId
+                        </td>
+                        <td>
+                            @item.EmployName
+                        </td>
+                        <td>
+                            @item.EmploySurname
+                        </td>
+                        <td>
+                            @item.CompanyName
+                        </td>
+                        <td>
+                            @item.DepartmentName
+                        </td>
+                        <td>
+                            <a href="/Employ/Edit/@item.EmployId" class="btn btn-success">Düzenle</a>
+                            <a href="/Employ/Delete/@item.EmployId" class="btn btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+

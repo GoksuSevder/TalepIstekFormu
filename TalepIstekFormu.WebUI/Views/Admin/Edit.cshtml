@@ -1,0 +1,518 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model FormListModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<div class="card">
+    <form action="/Admin/Edit" method="post">
+        <div class="card-header">
+            <h5> Talep - İstek Formu</h5>
+            <div class="row">
+                <div class="row justify-content-center">
+                    <div class="input-group m-lg-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            Form Durumu  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </span>
+                        <select class="form-select" aria-label="Default select example" id="FormListFormDurum" name="FormList.FormDurum">
+                            <option>
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                Form Durumu&nbsp;
+                                &nbsp;
+                                &nbsp; &nbsp;&nbsp;
+                            </option>
+                            <option value="1"> &nbsp;Yeni Kayıt</option>
+                            <option value="2" selected> &nbsp;İnceleniyor</option>
+                            <option value="3"> &nbsp;Onaylandı</option>
+                            <option value="4"> &nbsp;Reddedildi</option>
+                            <option value="5"> &nbsp;Kapat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row m-auto m-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">İlgili Departman</span>
+                        <select class="form-select" aria-label="Default select example" id="FormList.DepartmentId" name="FormList.DepartmentId">
+                            <option> &nbsp; &nbsp;Departman Seçin &nbsp; &nbsp;</option>
+                            @foreach (var item in ViewBag.DeparmentSelectList)
+                            {
+                                if (Model.FormList.DepartmentId == Convert.ToInt32(item.Value))
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="id" name="id" value="@Model.FormList.FormId" />
+        <div class="container">
+            <div class="card-body">
+                <div id="FormTable">
+                    <table class="table table-bordered border-dark " id="FormTable1">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="4" class="text-center"><h4>Uygulama Talep Formu</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Hazırlayan Anahtar Kullanıcı</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.EmployFullName, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Oluşturulma Tarihi</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.OlusturulmaTarih, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Talebin Gerçekleşeceği Sistem (varsa)</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.TalebinGerceklesecegiSistem, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Güncellenme Tarihi</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="row m-1">
+                                        <input type="date" class="form-control  border-0 " style="width: 100%" disabled>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span style="color:red">Talep Numarası: (BT Ekibi dolduracaktır)</span>
+                                    </div>
+                                <td>
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.TalepNumarasi, new { @class = "form-control border-0", Styles = "width: 100 %" })
+
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <br />
+                    <table class="table table-bordered border-dark ">
+                        <tbody>
+                            <tr>
+                                <td colspan="1">
+                                    <div class="row justify-content-center m-1">
+                                        <span>Talep Eden Grup Şirketi</span>
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.CompanyName, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Talep Eden Departman</span>
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    <div class="row m-1">
+                                        @Html.TextBoxFor(x => x.FormList.DepartmentName, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Talep Özeti</span>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.TalepOzet, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Talep Gerekçesi</span>
+                                </td>
+                                <td colspan="3">
+                                    <div class="row m-1">
+                                        @Html.TextAreaFor(x => x.FormList.TalepGerekce, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Talebin Türü</span>
+                                    <br />
+                                    <br />
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.MevcutSistemeEkMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_MevcutSistemeEkMi">
+                                            Mevcut Sisteme Ek Fonksiyon / Senaryo
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.MevcutFonksiyonMu, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_MevcutFonksiyonMu">
+                                            Mevcut Fonksiyon İyileştirme / Değişiklik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.YeniSistemMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_YeniSistemMi">
+                                            Yeni Sistem/ Uygulama Talebi
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.RaporlamaMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_RaporlamaMi">
+                                            Raporlama
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Talebin Kapsamı ve İçeriği</span>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.TalepKapsamIcerik, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Kullanıcı Grupları ve Kullanım Sıklığı</span>
+                                    <br />
+                                    <i>Lütfen talebin gerçekleştirilmesi durumunda ulaşılması hedeflenen faydayı detaylandırın.</i>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.KullaniciGrupKullanimSikligi, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                    <i>
+                                        (Yıllık iş gücü tasarrufu, kayıplarda azalma, hedeflenen süreç iyileştirmesini ölçülebilir şekilde yazınız. –
+                                        Adamgün, TL, personel sayısı)
+                                    </i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Hedeflenen Fayda</span>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.HedeflenenFayda, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.GelirArtisiMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_GelirArtisiMi">
+                                            Gelir Artışı
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.MaliyetAzaltmaMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_MaliyetAzaltmaMi">
+                                            Maliyet azaltma / verimlilik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.RegulasyonaUyumMu, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_RegulasyonaUyumMu">
+                                            Regülasyona uyum
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.TakipIzlenebilirlikArtisMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_TakipIzlenebilirlikArtisMi">
+                                            Takip / izlenebilirlik artışı
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.DigerMi, new { @class = "form-check-input", @disabled = "disabled" })
+                                        <label class="form-check-label" for="FormList_DigerMi">
+                                            Diğer <i>(Lütfen belirtin)</i>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    <span>Raporlama Gereksinimi</span>
+                                    <br />
+                                    <i>Lütfen varsa, değişiklik / ek fonksiyon talebinizden doğacak raporlama gereksinimlerini belirtiniz. </i>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.RaporlamaGereksinimi, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Riskler</span>
+                                    <br />
+                                    <i>Lütfen talebin gerçekleştirilmemesi durumunda oluşacak riskleri belirtin.</i>
+                                    <br />
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.Riskler, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Talep Sahibinin Piyasadaki Çözümlere İlişkin Bilgileri:</span>
+                                    <br />
+                                    <i>Lütfen varsa, 3. parti çözüm önerilerinizi belirtin.</i>
+                                    <br />
+                                    <div class="row justify-content-center m-1">
+                                        @Html.TextAreaFor(x => x.FormList.CozumBilgileri, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row justify-content-center m-1">
+                                        <span>Talep Edilen Devreye Alım Tarihi</span>
+                                    </div>
+                                </td>
+                                <td colspan="3">
+                                    @Html.TextBoxFor(x => x.FormList.DevreyeAlimTarihi, new { @class = "form-control border-0", Styles = "width: 100 %", @disabled = "disabled" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <table class="table table-bordered border-dark ">
+                        <tbody>
+                            <tr>
+                                <td colspan="4">
+                                    <span>Talep Sınıfı</span>
+                                    <br />
+                                    <br />
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.BugHataDuzeltmeMi, new { @class = "form-check-input", @name = "FormList_BugHataDuzeltmeMi" })
+                                        <label class="form-check-label" for="FormList_BugHataDuzeltmeMi">
+                                            Bug / hata düzeltme
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.KucukDegisklikMi, new { @class = "form-check-input", @name = "FormList_KucukDegisklikMi" })
+                                        <label class="form-check-label" for="FormList_KucukDegisklikMi">
+                                            Küçük değişiklik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.DegisklikMi, new { @class = "form-check-input", @name = "FormList_DegisklikMi" })
+
+                                        <label class="form-check-label" for="FormList_DegisklikMi">
+                                            Degişiklik
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        @Html.CheckBoxFor(x => x.FormList.BuyukDegisklikProjeMi, new { @class = "form-check-input", @name = "FormList_BuyukDegisklikProjeMi" })
+
+                                        <label class="form-check-label" for="FormList_BuyukDegisklikProjeMi">
+                                            Büyük değişiklik / proje
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="row justify-content-center m-1">
+                                        <span>Talep Maliyeti</span>
+                                        <br />&emsp;
+                                        <i>
+                                            (Talebin karşılanması için
+                                            gerekli olan, dahili adamgün
+                                            kaynağı, ek donanın, lisans,
+                                            danışmanlık vb. tüm
+                                            kaynakların detaylı kırılımını
+                                            içerecek şekilde belirtiniz.)
+                                        </i>
+                                    </div>
+                                    @Html.TextAreaFor(x => x.FormList.TalepMaliyeti, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="row justify-content-center m-1">
+                                        <span>Etkilenecek Sistem ve Veri Tabanları / Entegrasyonlar</span>
+                                    </div>
+                                    @Html.TextAreaFor(x => x.FormList.EtkilenecekSistemVeriTabanEntegrasyon, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="row justify-content-center m-1">
+                                        <span>Dış kaynaklardan temin imkanı varsa, seçenekleri ve maliyeti</span>
+                                    </div>
+                                    @Html.TextAreaFor(x => x.FormList.DisKaynakSecenekveMaliyeti, new { @class = "form-control border-0", Styles = "width: 100 %" })
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-center">
+                <div class="row">
+                    <div class="row justify-content-end ml-3">
+                        <button type="submit" class="btn btn-outline-info" id="submitButton">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+
+        $("#FormList_BugHataDuzeltmeMi").click(function () {
+            if (this.attributes[0].textContent == "checked") {
+                if ($("#FormList_BugHataDuzeltmeMi").val() == "true") {
+                    $("#FormList_BugHataDuzeltmeMi").val(false);
+                    $('input[name = "FormList.BugHataDuzeltmeMi"]').val(false);
+                }
+                else {
+                    $("#FormList_BugHataDuzeltmeMi").val(true);
+                    $('input[name = "FormList.BugHataDuzeltmeMi"]').val(true);
+                }
+            }
+            else {
+                if ($("#FormList_BugHataDuzeltmeMi").val() == "true") {
+                    $("#FormList_BugHataDuzeltmeMi").val(false);
+                    $('input[name = "FormList.BugHataDuzeltmeMi"]').val(true);
+                }
+                else {
+                    $("#FormList_BugHataDuzeltmeMi").val(true);
+                    $('input[name = "FormList.BugHataDuzeltmeMi"]').val(false);
+                }
+            }
+        });
+        $("#FormList_KucukDegisklikMi").click(function () {
+            if (this.attributes[0].textContent == "checked") {
+                if ($("#FormList_KucukDegisklikMi").val() == "true") {
+                    $("#FormList_KucukDegisklikMi").val(false);
+                    $('input[name="FormList.KucukDegisklikMi"]').val(false);
+                }
+                else {
+                    $("#FormList_KucukDegisklikMi").val(true);
+                    $('input[name="FormList.KucukDegisklikMi"]').val(true);
+                }
+            }
+            else {
+                if ($("#FormList_KucukDegisklikMi").val() == "true") {
+                    $("#FormList_KucukDegisklikMi").val(false);
+                    $('input[name="FormList.KucukDegisklikMi"]').val(true);
+
+                }
+                else {
+                    $("#FormList_KucukDegisklikMi").val(true);
+                    $('input[name="FormList.KucukDegisklikMi"]').val(false);
+                }
+            }
+        });
+        $("#FormList_DegisklikMi").click(function () {
+            if (this.attributes[0].textContent == "checked") {
+                if ($("#FormList_DegisklikMi").val() == "true") {
+                    $("#FormList_DegisklikMi").val(false);
+                    $('input[name="FormList.DegisklikMi"]').val(false);
+                }
+                else {
+                    $("#FormList_DegisklikMi").val(true);
+                    $('input[name="FormList.DegisklikMi"]').val(true);
+                }
+            }
+            else {
+                if ($("#FormList_DegisklikMi").val() == "true") {
+                    $("#FormList_DegisklikMi").val(false);
+                    $('input[name="FormList.DegisklikMi"]').val(true);
+
+                }
+                else {
+                    $("#FormList_DegisklikMi").val(true);
+                    $('input[name="FormList.DegisklikMi"]').val(false);
+                }
+            }
+        });
+        $("#FormList_KucukDegisklikMi").click(function () {
+            if (this.attributes[0].textContent == "checked") {
+                if ($("#FormList_BuyukDegisklikProjeMi").val() == "true") {
+                    $("#FormList_BuyukDegisklikProjeMi").val(false);
+                    $('input[name="FormList.BuyukDegisklikProjeMi"]').val(false);
+                }
+                else {
+                    $("#FormList_BuyukDegisklikProjeMi").val(true);
+                    $('input[name="FormList.BuyukDegisklikProjeMi"]').val(true);
+                }
+            }
+            else {
+                if ($("#FormList_BuyukDegisklikProjeMi").val() == "true") {
+                    $("#FormList_BuyukDegisklikProjeMi").val(false);
+                    $('input[name="FormList.BuyukDegisklikProjeMi"]').val(true);
+
+                }
+                else {
+                    $("#FormList_BuyukDegisklikProjeMi").val(true);
+                    $('input[name="FormList.BuyukDegisklikProjeMi"]').val(false);
+                }
+            }
+        });
+    });
+</script>

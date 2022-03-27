@@ -1,0 +1,58 @@
+﻿@using TalepIstekFormu.WebUI.Models
+@model DepartmentListModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<br />
+<br />
+
+
+<div class="card">
+    <div class="card-header">
+        <h5> Departman Listesi</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th style="width:20%">
+                        <div class="row justify-content-center m-1">
+                            <span> Departman ID</span>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="row justify-content-center m-1">
+                            <span> Departman Ad</span>
+                        </div>
+                    </th>
+                    <th style="width:10%">
+                        <div class="row justify-content-center m-1">
+                            <span>İşlemler </span>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Departments)
+                {
+                    <tr>
+                        <td>
+                            @item.DepartmentId
+                        </td>
+                        <td>
+                            @item.DepartmentName
+                        </td>
+                        <td>
+                            <a href="/Department/Edit/@item.DepartmentId" class="btn btn-success">Düzenle</a>
+                            <a href="/Department/Delete/@item.DepartmentId" class="btn btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
